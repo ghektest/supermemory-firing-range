@@ -72,7 +72,7 @@ jobs:
 
             After fixing, commit and push directly to the branch.
 
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --max-turns 20
             --allowedTools "Read,Write,Edit,Glob,Grep,Bash(*),WebSearch,WebFetch"
