@@ -17,12 +17,12 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Run TypeScript type checking
         run: |
           echo "Running type checks..."
-          # Intentionally fail to trigger the auto-fix workflow
+          echo "Simulating CI failure to trigger workflow_run..."
           exit 1
 
       - name: Run Biome CI
