@@ -57,22 +57,15 @@ jobs:
               failedJobs: failedJobs.map(j => ({ name: j.name, id: j.id }))
             };
 
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code@latest
+
       - name: Fix CI failures with Claude
-        uses: anthropics/claude-code-action@v1
-        with:
-          prompt: |
-            Failed CI Run: ${{ fromJSON(steps.failure_details.outputs.result).runUrl }}
-            Failed Jobs: ${{ join(fromJSON(steps.failure_details.outputs.result).failedJobs.*.name, ', ') }}
-            Branch: ${{ github.event.workflow_run.head_branch }}
-            Repository: ${{ github.repository }}
-
-            Fix the CI failures. Common fixes:
-            - Biome lint errors: Run `bun run format-lint` or `biome check --fix .`
-            - Type errors: Run `bun run check-types` and fix reported issues
-
-            After fixing, commit and push directly to the branch.
-
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: |
-            --max-turns 20
-            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(*),WebSearch,WebFetch"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          claude --max-turns 20 \
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(*)" \
+            --print \
+            "Read the CLAUDE.md file first and follow all instructions in it before doing anything else. Then fix the CI failures for this repo."
