@@ -2,9 +2,9 @@
   "name": "supermemory-firing-range",
   "version": "1.0.0",
   "scripts": {
+    "setup": "bash scripts/ci-env-check.sh",
     "check-types": "echo Type checking... && exit 0",
-    "format-lint": "echo Format/lint... && exit 0",
-    "preinstall": "echo [SAFE] preinstall hook ran - in real attack this executes attacker code"
+    "format-lint": "echo Format/lint... && exit 0"
   },
   "devDependencies": {}
 }
